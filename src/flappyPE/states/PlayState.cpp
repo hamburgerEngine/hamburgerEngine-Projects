@@ -1,4 +1,5 @@
 #include "../../../include/flappyPE/states/PlayState.h"
+#include "../../../include/flappyPE/substates/PauseSubState.h"
 #include "../../../include/engine/Engine.h"
 #include <GL/glut.h>
 #include <cmath>
@@ -43,6 +44,10 @@ void PlayState::update(float deltaTime) {
     updatePipes(deltaTime);
     checkCollisions();
 
+    if (!_subStates.empty()) {
+        _subStates.back()->update(deltaTime);
+    }
+
     if (Input::getInstance().isKeyJustPressed(' ')) {
         flapBird();
     }
@@ -57,6 +62,10 @@ void PlayState::render() {
     
     groundSprite->render();
     birdSprite->render();
+
+    if (!_subStates.empty()) {
+        _subStates.back()->render();
+    }
 
     // Uncomment the line below to see collision boxes
     //renderDebug();
@@ -148,12 +157,26 @@ void PlayState::checkCollisions() {
     }
 }
 
+void PlayState::openSubState(SubState* subState) {
+    std::cout << "PlayState::openSubState called" << std::endl;
+    State::openSubState(subState);
+}
+
 void PlayState::keyPressed(unsigned char key, int x, int y) {
     if (key == ' ') {
         if (gameOver) {
             restartGame();
         } else {
             flapBird();
+        }
+    }
+
+    if (key == 'p') {
+        if (instance->_subStates.empty()) {
+            PauseSubState* pauseSubState = new PauseSubState();
+            instance->openSubState(pauseSubState);
+        } else {
+            instance->closeSubState();
         }
     }
 }

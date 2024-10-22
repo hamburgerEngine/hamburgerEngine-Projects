@@ -18,6 +18,7 @@ public:
     void keyPressed(unsigned char key, int x, int y);
 
     void renderDebug();
+    void openSubState(SubState* subState);
 
 private:
     static PlayState* instance;
