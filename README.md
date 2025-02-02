@@ -1,7 +1,12 @@
-# Flappy Bird - Phlox Engine
+# Phlox Engine Projects
 
-A simple Flappy Bird clone/port made with [Phlox Engine](https://github.com/yophlox/PhloxEngine).
 
-Made with Phlox Engine - InDev 1.0
+* A repo that holds personal test projects that I made for Phlox Engine.
 
-Space to flap.
+* Check the "Legacy_Projects" folder for all of the projects/games I've made with the legacy version of the engine.
+
+* Check the "Rewrite_Dev_Projects" folder for all of the projects/games I've made with the rewritten version of the engine.
+
+# Credits
+
+* YoPhlox - Engine & Projects
