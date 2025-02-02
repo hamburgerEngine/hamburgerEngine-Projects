@@ -3,7 +3,7 @@
 ### Flappy Bird PE - The first and only public project to be made with the legacy version of Phlox Engine.
 
 * Download - N/A (Compile it yourself.)
-* Source Code - (here)[https://github.com/PhloxEngine/PhloxEngine-Projects/Legacy_Projects/FlappyBirdPE]
+* Source Code - [here](https://github.com/PhloxEngine/PhloxEngine-Projects/Legacy_Projects/FlappyBirdPE)
 
 ### Friday Night Funkin' PE - A rewrite/port of Friday Night Funkin to Phlox Engine.
 
