@@ -1,7 +1,7 @@
-# Phlox Engine Projects
+# hamburgerEngine Projects
 
 
-* A repo that holds personal test projects that I made for Phlox Engine.
+* A repo that holds personal test projects that I made for hamburgerEngine.
 
 * Check the "Stable_Projects" folder for all of the projects/games I've made with the legacy version of the engine.
 
@@ -9,4 +9,4 @@
 
 # Credits
 
-* YoPhlox - Engine & Projects
+* YoPhlox & MaybeKoi- Engine & Projects
