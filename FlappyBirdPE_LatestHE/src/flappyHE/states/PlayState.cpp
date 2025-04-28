@@ -51,7 +51,7 @@ void PlayState::update(float deltaTime) {
     Input::UpdateControllerStates();
 
     if (gameOver) {
-        if (Input::isControllerButtonPressed(SDL_CONTROLLER_BUTTON_A) || Input::pressed(SDL_SCANCODE_SPACE)) {
+        if (Input::isControllerButtonPressed(SDL_CONTROLLER_BUTTON_A) || Input::justPressed(SDL_SCANCODE_SPACE)) {
             restartGame();
         }
         return;
@@ -66,7 +66,7 @@ void PlayState::update(float deltaTime) {
         checkCollisions();
 
 
-        if (Input::isControllerButtonPressed(SDL_CONTROLLER_BUTTON_A) || Input::pressed(SDL_SCANCODE_SPACE)) {
+        if (Input::isControllerButtonPressed(SDL_CONTROLLER_BUTTON_A) || Input::justPressed(SDL_SCANCODE_SPACE)) {
             flapBird();
             #ifdef __SWITCH__ 
                 Log::getInstance().info("A pressed");
@@ -88,7 +88,7 @@ void PlayState::render() {
     if (!_subStates.empty()) {
         _subStates.back()->render();
     }
-    // uncomment 4 collision boxes (NOT IMPLEMENTED LMAO!)
+    // uncomment 4 collision boxes
     //renderDebug();
 }
 
@@ -199,5 +199,42 @@ void PlayState::restartGame() {
 }
 
 void PlayState::renderDebug() {
-    // doesn't do anything.
+    SDLManager& sdlManager = SDLManager::getInstance();
+    
+    sdlManager.setColor(255, 0, 0, 255);
+    float birdLeft = birdSprite->getX();
+    float birdTop = birdSprite->getY();
+    float birdRight = birdLeft + 68;
+    float birdBottom = birdTop + 48;
+    
+    SDL_RenderDrawLine(sdlManager.getRenderer(), birdLeft, birdTop, birdRight, birdTop);
+    SDL_RenderDrawLine(sdlManager.getRenderer(), birdRight, birdTop, birdRight, birdBottom);
+    SDL_RenderDrawLine(sdlManager.getRenderer(), birdRight, birdBottom, birdLeft, birdBottom);
+    SDL_RenderDrawLine(sdlManager.getRenderer(), birdLeft, birdBottom, birdLeft, birdTop);
+
+    sdlManager.setColor(0, 255, 0, 255);
+    for (auto& pipe : pipes) {
+        float pipeWidth = pipe->getWidth();
+        float pipeHeight = pipe->getHeight() * std::abs(pipe->getScale().y);
+        float pipeX = pipe->getX();
+        float pipeY = pipe->getY() + (pipe->getScale().y < 0 ? -pipeHeight : 0);
+
+        SDL_RenderDrawLine(sdlManager.getRenderer(), pipeX, pipeY, pipeX + pipeWidth, pipeY);
+        SDL_RenderDrawLine(sdlManager.getRenderer(), pipeX + pipeWidth, pipeY, pipeX + pipeWidth, pipeY + pipeHeight);
+        SDL_RenderDrawLine(sdlManager.getRenderer(), pipeX + pipeWidth, pipeY + pipeHeight, pipeX, pipeY + pipeHeight);
+        SDL_RenderDrawLine(sdlManager.getRenderer(), pipeX, pipeY + pipeHeight, pipeX, pipeY);
+    }
+
+    sdlManager.setColor(0, 0, 255, 255);
+    float groundLeft = 0;
+    float groundTop = groundSprite->getY();
+    float groundRight = Engine::getInstance()->getWindowWidth();
+    float groundBottom = groundTop + groundSprite->getHeight();
+
+    SDL_RenderDrawLine(sdlManager.getRenderer(), groundLeft, groundTop, groundRight, groundTop);
+    SDL_RenderDrawLine(sdlManager.getRenderer(), groundRight, groundTop, groundRight, groundBottom);
+    SDL_RenderDrawLine(sdlManager.getRenderer(), groundRight, groundBottom, groundLeft, groundBottom);
+    SDL_RenderDrawLine(sdlManager.getRenderer(), groundLeft, groundBottom, groundLeft, groundTop);
+
+    sdlManager.resetColor();
 }
