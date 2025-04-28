@@ -50,7 +50,12 @@ void PlayState::update(float deltaTime) {
     Input::UpdateKeyStates();
     Input::UpdateControllerStates();
 
-    if (gameOver) return;
+    if (gameOver) {
+        if (Input::isControllerButtonPressed(SDL_CONTROLLER_BUTTON_A) || Input::pressed(SDL_SCANCODE_SPACE)) {
+            restartGame();
+        }
+        return;
+    }
 
     if (!_subStates.empty()) {
         _subStates.back()->update(deltaTime);
@@ -62,12 +67,7 @@ void PlayState::update(float deltaTime) {
 
 
         if (Input::isControllerButtonPressed(SDL_CONTROLLER_BUTTON_A) || Input::pressed(SDL_SCANCODE_SPACE)) {
-            if (gameOver) {
-                restartGame();
-            }
-            else {
-                flapBird();
-            }
+            flapBird();
             #ifdef __SWITCH__ 
                 Log::getInstance().info("A pressed");
             #endif
@@ -185,8 +185,10 @@ void PlayState::openSubState(SubState* subState) {
 
 void PlayState::restartGame() {
     Log::getInstance().info("RESTARTING THE GAME!");
-    PlayState* newState = new PlayState();
-    Engine::getInstance()->switchState(newState);
+    birdSprite->setPosition(100, 300);
+    birdVelocity = 0;
+    score = 0;
+    gameOver = false;
 
     for (auto& pipe : pipes) {
         delete pipe;
