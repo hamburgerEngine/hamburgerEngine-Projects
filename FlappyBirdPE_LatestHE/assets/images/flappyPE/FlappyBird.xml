@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="FlappyBird.png">
+	<!-- Created using the Spritesheet and XML generator -->
+	<!-- https://uncertainprod.github.io/FNF-Spritesheet-XML-generator-Web -->
+	<SubTexture name="idle0000" x="0" y="52" width="72" height="52" frameX="2" frameY="2" frameWidth="68" frameHeight="48"/>
+	<SubTexture name="idle0001" x="0" y="0" width="72" height="52" frameX="2" frameY="2" frameWidth="68" frameHeight="48"/>
+	<SubTexture name="idle0002" x="72" y="0" width="72" height="52" frameX="2" frameY="2" frameWidth="68" frameHeight="48"/>
+</TextureAtlas>
